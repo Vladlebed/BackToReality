@@ -9,14 +9,38 @@ function startGame(){
 	let frame = 0;
 	let killCount = 0; 
 
+	let birdsSRC = [
+		['./img/n1.png','./img/n2.png'],
+		['./img/s1.png','./img/s2.png'],
+		['./img/a1.png','./img/a2.png'],
+		['./img/t1.png','./img/t2.png'],
+		['./img/d1.png','./img/d2.png'],
+		['./img/maks.png','./img/maks2.png'],
+		['./img/mikel1.png','./img/mikel2.png'],
+		['./img/seva1.png','./img/seva2.png'],
+		['./img/andrey1.png','./img/andrey2.png'],
+	]
+
+	let birdsIMG = []
+
+	for(i in birdsSRC){
+		let subArr = [];
+		for(j in birdsSRC[i]){
+			let img = new Image();
+			img.src = birdsSRC[i][j];
+			subArr.push(img);
+		}
+		birdsIMG.push(subArr);
+	}
+	console.log(birdsIMG)
+
 	document.body.appendChild(cnv);
 
 	let backgroundGame = new Image();
 	backgroundGame.src = './img/bgArt.jpg';
 
-
 	let birdImg = new Image();
-	birdImg.src = './img/n1.png';
+	birdImg.src = './img/n1.png'; 
 	let bird2Img = new Image();
 	bird2Img.src = './img/n2.png';
 
@@ -75,7 +99,7 @@ function startGame(){
 
 	function game(){
 		frame++;
-		if(frame <= 20) {updateBrid()}
+		if(frame <= birdsIMG.length) {updateBrid()}
 			if(config.group.length <= 0){
 				music.pause();
 				alert('WIN!!!')
@@ -110,6 +134,7 @@ function startGame(){
 		}
 
 		let clickBox = document.querySelector('#click');
+		let friendsCount = 0;
 
 		function addBird (event) {
 			if(event.clientX > 75 && event.clientX < w - 75 && event.clientY > 75 && event.clientY < h - 75){
@@ -118,7 +143,7 @@ function startGame(){
 		};
 
 		function killBird (event) {
-			clickAdd();
+			clickAdd();	
 			for(i in config.group){
 				if(event.clientX <= config.group[i][0] + config.bird.width && event.clientX >= config.group[i][0]
 					&& event.clientY <= config.group[i][1] + config.bird.height && event.clientY >= config.group[i][1]){
@@ -136,18 +161,29 @@ function startGame(){
 		let y = Math.round(Math.random(config.bird.height) * (h - config.bird.height))
 		let speed = Math.round(Math.random(2) * 15)
 		let dir =  Math.round(Math.random(1) * 10)
-		config.group.push([x,y,true,{speed: speed,directionChange: dir}])
+		config.group.push([x,y,true,{speed: speed,directionChange: dir},birdsIMG[friendsCount]])
+		if(friendsCount <= birdsIMG.length - 1){
+			friendsCount++;
+		}
+		if(friendsCount > birdsIMG.length - 1){
+			friendsCount = 0;
+		}
+	}
+
+	function returnImg (index) {
+		let img = new Image();
 	}
 
 	function drawBird(direction) {
-		if(direction) return birdImg
-			else return bird2Img
-		}
+		if(direction) return 0
+		else return 1	
+		} 
 
 	function init () {
 		ctx.drawImage(backgroundGame,0,0,w,h)
 		for(i in config.group){
-			ctx.drawImage(drawBird(config.group[i][2]),config.group[i][0],config.group[i][1],config.bird.width,config.bird.height)
+			console.log(config.group[i]);
+			ctx.drawImage(config.group[i][4][drawBird(config.group[i][2])],config.group[i][0],config.group[i][1],config.bird.width,config.bird.height)
 		}
 		for(i in config.blood){
 			ctx.drawImage(bloodImg,config.blood[i][0],config.blood[i][1],100,100);
