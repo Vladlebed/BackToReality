@@ -132,8 +132,8 @@ function startGame(){
 	}
 
 	function updateBrid(){
-		let x = Math.round(Math.random() * w - config.bird.width)
-		let y = Math.round(Math.random() * h - config.bird.height)
+		let x = Math.round(Math.random(config.bird.width) * (w - config.bird.width))
+		let y = Math.round(Math.random(config.bird.height) * (h - config.bird.height))
 		let speed = Math.round(Math.random(2) * 15)
 		let dir =  Math.round(Math.random(1) * 10)
 		config.group.push([x,y,true,{speed: speed,directionChange: dir}])
