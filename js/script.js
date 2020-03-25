@@ -31,7 +31,8 @@ function startGame(){
 		['./img/sobol.png','./img/sobol2.png'],
 		['./img/egor.png','./img/egor2.png'],
 		['./img/slava.png','./img/slava2.png'], 
-		['./img/btm.png','./img/btm2.png'], 
+		['./img/btm.png','./img/btm2.png'],
+		['./img/kris1.png','./img/kris2.png'],
 	]
 
 	let birdsIMG = []
