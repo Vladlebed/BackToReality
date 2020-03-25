@@ -7,7 +7,7 @@ function startGame(){
 	let w = cnv.width = innerWidth;
 	let h = cnv.height = innerHeight;
 	let frame = 0;
-	let killCount = 0; 
+	
 
 	let birdsSRC = [
 		['./img/nikita1.png','./img/nikita2.png'],
@@ -46,15 +46,12 @@ function startGame(){
 		birdsIMG.push(subArr);
 	}
 
+	let killCount = birdsIMG.length;
+	kill.innerHTML = killCount;
 	document.body.appendChild(cnv);
 
 	let backgroundGame = new Image();
 	backgroundGame.src = './img/bgArt.jpg';
-
-	let birdImg = new Image();
-	birdImg.src = './img/n1.png'; 
-	let bird2Img = new Image();
-	bird2Img.src = './img/n2.png';
 
 	let bloodImg = new Image();
 	bloodImg.src = 'img/blood.png';
@@ -160,7 +157,7 @@ function startGame(){
 				if(event.clientX <= config.group[i][0] + config.bird.width && event.clientX >= config.group[i][0]
 					&& event.clientY <= config.group[i][1] + config.bird.height && event.clientY >= config.group[i][1]){
 					config.group.splice([i],1);
-				killCount++;
+				killCount--;
 				kill.innerHTML = killCount;
 				voice();
 				bloodRender(event.clientX,event.clientY);
@@ -206,6 +203,7 @@ function startGame(){
 
 	backgroundGame.onload = ()=> {
 		game()
+
 	}
 
 	function sound(){
