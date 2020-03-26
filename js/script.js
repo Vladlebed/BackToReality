@@ -113,6 +113,7 @@ function startGame(){
 		if(frame <= birdsIMG.length) {updateBrid()}
 			if(config.group.length <= 0){
 				music.pause();
+				cancelAnimationFrame(game);
 				alert('WIN!!!')
 				document.location.reload();
 			}
