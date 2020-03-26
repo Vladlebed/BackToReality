@@ -33,6 +33,7 @@ function startGame(){
 		['./img/slava.png','./img/slava2.png'], 
 		['./img/btm.png','./img/btm2.png'],
 		['./img/kris1.png','./img/kris2.png'],
+		['./img/tim1.png','./img/tim2.png']
 	]
 
 	let birdsIMG = []
